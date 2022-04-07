@@ -36,7 +36,7 @@ public class Provincia{
 	
 	
 	//Metodos de Provincia 
-	public boolean addPueblo​(String nombrePueblo, String codigo, int numeroHabitantes, 
+	public boolean addPueblo(String nombrePueblo, String codigo, int numeroHabitantes, 
 							 double rentaPerCapita, double superficie)  throws ProvinciaException {
 		
 		boolean anadirPueblo = false;
@@ -64,7 +64,8 @@ public class Provincia{
 		return anadirPueblo;
 	}
 	
-	public boolean addPueblo​(Pueblo pueblo)  throws ProvinciaException {
+	/*
+	public boolean addPueblo(Pueblo pueblo)  throws ProvinciaException {
 
 	String codigoNuevo = pueblo.getCodigo();	
 		
@@ -83,9 +84,9 @@ public class Provincia{
 	this.rentaPerCapita += pueblo.getRentaPerCapita();
 		}
 
-
 		return anadirPueblo;
 	}
+	 */
 	
 	
 	public boolean delPueblo(String nombre) {
@@ -151,7 +152,7 @@ public class Provincia{
 	public String listadoPueblos() {
 		StringBuilder cadenaNueva = new StringBuilder("");
 		for (Pueblo p : this.pueblos) {
-			cadenaNueva.append(p);
+			cadenaNueva.append(p+"\n");
 		}
 		return cadenaNueva.toString();
 	}
@@ -223,10 +224,12 @@ public class Provincia{
 
 	public void setSuperficie(String pueblo, Double superficie) {
 		
-		//Si se cambia la superficie de un Pueblo, tambien 
-		//cambiara la superficie de Provincia.
-		
-		this.superficie = superficie;
+		for(Pueblo p : this.pueblos) {
+			if(p.getNombre().equalsIgnoreCase(nombre)) {
+				p.setSuperficie(superficie);
+				this.superficie += p.getSuperficie();
+			}
+		}
 	}
 
 	

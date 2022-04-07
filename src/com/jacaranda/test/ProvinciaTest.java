@@ -77,7 +77,7 @@ class ProvinciaTest {
 			Pueblo pb = new Pueblo("Lora", "12341",1000,20.5,12005.3);
 
 			
-			pr.addPueblo​(pb);
+			pr.addPueblo(pb);
 			
 			assert(true);
 		} catch (ProvinciaException pe) {
@@ -93,8 +93,8 @@ class ProvinciaTest {
 			Pueblo pb = new Pueblo("Lora", "12341",1000,20.5,12005.3);
 			Pueblo pb1 = new Pueblo("Lora", "12341",1000,20.5,12005.3);
 			
-			pr.addPueblo​(pb);
-			pr.addPueblo​(pb1);
+			pr.addPueblo(pb);
+			pr.addPueblo(pb1);
 			assert(false);
 		} catch (ProvinciaException pe) {
 			assert(true);
@@ -109,7 +109,7 @@ class ProvinciaTest {
 
 			Pueblo pb = new Pueblo("Lora", "12341");
 			
-			pr.addPueblo​(pb);
+			pr.addPueblo(pb);
 			assert(true);
 		} catch (ProvinciaException pe) {
 			assert(false);
@@ -123,7 +123,7 @@ class ProvinciaTest {
 
 			Pueblo pb = new Pueblo("Lora", "12341");
 			
-			pr.addPueblo​(pb);
+			pr.addPueblo(pb);
 			assert(true);
 		} catch (ProvinciaException pe) {
 			assert(false);
@@ -138,7 +138,7 @@ class ProvinciaTest {
 
 			Pueblo pb = new Pueblo("Lora", "12341");
 			
-			pr.addPueblo​(pb);
+			pr.addPueblo(pb);
 			
 			pr.getInformacionPueblo("Lora");
 			assert(true);
@@ -152,7 +152,7 @@ class ProvinciaTest {
 		try {
 			Provincia pr = new Provincia("Sevilla","17");
 
-			pr.addPueblo​("Lora", "10000", -21, -22.5, -54.6);
+			pr.addPueblo("Lora", "10000", -21, -22.5, -54.6);
 			assert(false);
 		} catch (ProvinciaException pe) {
 			assert(true);
