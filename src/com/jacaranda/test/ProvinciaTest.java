@@ -1,32 +1,18 @@
 package com.jacaranda.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.junit.jupiter.api.Test;
 
 import com.jacaranda.utilities.Provincia;
 import com.jacaranda.utilities.ProvinciaException;
 import com.jacaranda.utilities.Pueblo;
-import com.jacaranda.utilities.PuebloException;
 
 class ProvinciaTest {
 
 	@Test
 	void testCrearProvinciaDatos() {
 		Provincia pr = new Provincia("Sevilla","11");
-		assertEquals(pr.getClass().getSimpleName(), "Provincia");
+		assert(pr instanceof Provincia && pr != null);
 		
-		/*
-		try {
-			Provincia pr = new Provincia("Sevilla","11445");
-		} catch (Exception e) {
-			assert(false);
-		}
-		assert(true);
-		*/
 	}
 	
 	@Test

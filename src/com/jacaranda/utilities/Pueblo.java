@@ -9,6 +9,7 @@ public class Pueblo implements Comparable<Pueblo> {
 	private String nombre;
 	private String codigo;
 
+	private final Integer LONGITUD_CODIGO = 5;
 
 
 	private Integer numeroHabitantes=0;
@@ -26,20 +27,14 @@ public class Pueblo implements Comparable<Pueblo> {
 		this.nombre = nombre.toUpperCase();  		//Se debe almacenar en mayus. ok
 		
 		
-		boolean esValido = false;								//5 caracteres numericos. Se lanza Exception. ok
-		if (codigo.length() == 5) {
+		boolean esValido = codigo.length() == LONGITUD_CODIGO;								//5 caracteres numericos. Se lanza Exception. ok
+		if (esValido) {
 			for (int i = 0;i<codigo.length();i++) {
-				if (Character.isDigit(codigo.charAt(i))) {
-					esValido = true;
-				}
-				else {
+				if (!Character.isDigit(codigo.charAt(i))) {
 					esValido = false;
 				}
-				if (esValido == true) {
-					this.codigo = codigo;
-				}
 				else {
-				throw new PuebloException("[ERROR] El codigo no es valido");
+					this.codigo = codigo;
 				}
 			}
 		}
@@ -47,8 +42,9 @@ public class Pueblo implements Comparable<Pueblo> {
 			throw new PuebloException("[ERROR] El codigo no es valido");
 		}
 		
+		
 		if (numeroHabitantes>=0) {
-			this.numeroHabitantes = numeroHabitantes;	//Lanzar Exception si es negativo.	ok		
+			this.numeroHabitantes = numeroHabitantes;		
 		}
 		else {
 			throw new PuebloException("[ERROR] El numero es negativo");
@@ -87,23 +83,17 @@ public class Pueblo implements Comparable<Pueblo> {
 	
 	
 	public Pueblo(String nombre, String codigo) {
-		this.nombre = nombre.toUpperCase();  		//Se debe almacenar en mayus. ok
+		this.nombre = nombre.toUpperCase();  		 
 		
 		
-		boolean esValido = false;								//5 caracteres numericos. Se lanza Exception. ok
-		if (codigo.length() == 5) {
+		boolean esValido = codigo.length() == LONGITUD_CODIGO;								 
+		if (esValido) {
 			for (int i = 0;i<codigo.length();i++) {
-				if (Character.isDigit(codigo.charAt(i))) {
-					esValido = true;
-				}
-				else {
+				if (!Character.isDigit(codigo.charAt(i))) {
 					esValido = false;
 				}
-				if (esValido == true) {
-					this.codigo = codigo;
-				}
 				else {
-				throw new PuebloException("[ERROR] El codigo no es valido");
+					this.codigo = codigo;
 				}
 			}
 		}
@@ -145,10 +135,20 @@ public class Pueblo implements Comparable<Pueblo> {
 	}
 
 	private void setCodigo(String codigo) throws PuebloException {
-		if (codigo == null || (codigo.length() != 5 && !codigo.chars().allMatch(Character::isDigit))) {
-			throw new PuebloException("Error no se puede crear el pueblo");
+		boolean esValido = codigo.length() == LONGITUD_CODIGO;								 
+		if (esValido) {
+			for (int i = 0;i<codigo.length();i++) {
+				if (!Character.isDigit(codigo.charAt(i))) {
+					esValido = false;
+				}
+				else {
+					this.codigo = codigo;
+				}
+			}
 		}
-		this.codigo = codigo;
+		else {
+			throw new PuebloException("[ERROR] El codigo no es valido");
+		}
 	}
 
 

@@ -12,6 +12,8 @@ public class Provincia{
 	private Double rentaPerCapita;
 	private Double superficie;
 		
+	private final Integer LONGITUD_CODIGO = 2;
+	
 	private Collection<Pueblo> pueblos;
 		
 	
@@ -39,54 +41,74 @@ public class Provincia{
 	public boolean addPueblo(String nombrePueblo, String codigo, int numeroHabitantes, 
 							 double rentaPerCapita, double superficie)  throws ProvinciaException {
 		
-		boolean anadirPueblo = false;
-		String codigoNuevo = this.codigo + codigo;
-		if (nombre == null) {
-			throw new ProvinciaException("El codigo no puede ser nulo");
-		}
-		if (existePueblo(nombre)) {
-			throw new ProvinciaException("El pueblo ya existe");
-		} else {
-			try {
-				Pueblo p1 = new Pueblo(nombrePueblo, codigoNuevo, numeroHabitantes, rentaPerCapita, superficie );
-				pueblos.add(p1);
-				anadirPueblo = true;
-				this.superficie += superficie;
-				this.numeroHabitantes += numeroHabitantes;
-				this.rentaPerCapita += rentaPerCapita;
-			}catch (PuebloException e) {
-				throw new ProvinciaException("No se ha podido crear el pueblo",e);
+		try {
+			boolean anadirPueblo = false;
+				
+				int codigoNuevo = Integer.valueOf(this.codigo) + Integer.valueOf(codigo);
+			
+			if (nombre == null) {
+				throw new ProvinciaException("El codigo no puede ser nulo");
+			}
+			if (existePueblo(nombre)) {
+				throw new ProvinciaException("El pueblo ya existe");
+			} else {
+				try {
+					Pueblo p1 = new Pueblo(nombrePueblo, String.valueOf(codigoNuevo), numeroHabitantes, rentaPerCapita, superficie );
+					pueblos.add(p1);
+					anadirPueblo = true;
+					this.superficie += superficie;
+					this.numeroHabitantes += numeroHabitantes;
+					this.rentaPerCapita += rentaPerCapita;
+				}catch (PuebloException e) {
+					throw new ProvinciaException("No se ha podido crear el pueblo",e);
+				}
+				
 			}
 			
+			
+			return anadirPueblo;
+			}
+			catch (Exception e) {
+				throw new ProvinciaException("[ERROR] El codigo debe ser numerico");
+			}
 		}
 		
 		
-		return anadirPueblo;
-	}
+		public boolean addPueblo(Pueblo pueblo)  throws ProvinciaException {
 	
-	/*
-	public boolean addPueblo(Pueblo pueblo)  throws ProvinciaException {
-
-	String codigoNuevo = pueblo.getCodigo();	
+			try {
+				
+		int codigoNuevo = Integer.valueOf(this.codigo) + Integer.valueOf(pueblo.getCodigo());;	
+			
+		boolean anadirPueblo = false;
 		
-	boolean anadirPueblo = false;
-	codigoNuevo = this.codigo + codigo;
-	if (pueblo.getNombre() == null) {
-	throw new ProvinciaException("El codigo no puede ser nulo");
-	}
-	if (existePueblo(pueblo.getNombre())) {
-	throw new ProvinciaException("El pueblo ya existe");
-	} else {
-	pueblos.add(pueblo);
-	anadirPueblo = true;
-	this.superficie += pueblo.getSuperficie();
-	this.numeroHabitantes += pueblo.getNumeroHabitantes();
-	this.rentaPerCapita += pueblo.getRentaPerCapita();
+		if (pueblo.getNombre() == null) {
+		
+			throw new ProvinciaException("El codigo no puede ser nulo");
 		}
+		if (existePueblo(pueblo.getNombre())) {
+		
+			throw new ProvinciaException("El pueblo ya existe");
+		} 
+		else {
+		
+			anadirPueblo = true;
+			pueblos.add(pueblo);
+			this.superficie += pueblo.getSuperficie();
+			this.numeroHabitantes += pueblo.getNumeroHabitantes();
+			this.rentaPerCapita += pueblo.getRentaPerCapita();
+			}
+	
+			return anadirPueblo;
+		}
+		catch (Exception e) {
+			throw new ProvinciaException("[ERROR] El codigo debe ser numerico");
+		}
+		
+		
 
-		return anadirPueblo;
 	}
-	 */
+	 
 	
 	
 	public boolean delPueblo(String nombre) {
@@ -172,27 +194,22 @@ public class Provincia{
 
 
 	private void setCodigo(String codigo) throws ProvinciaException {
-		if (codigo==null) {
-			throw new ProvinciaException("El nombre no puede ser nulo");
-		}
-		boolean esValido = false;								//2 caracteres numericos. Se lanza Exception. ok
-		if (codigo.length() == 2) {
+		
+		boolean esValido = codigo.length() == LONGITUD_CODIGO;		
+		if (esValido) {
 			for (int i = 0;i<codigo.length();i++) {
-				if (Character.isDigit(codigo.charAt(i))) {
-					esValido = true;
-				}
-				else {
+				if (!Character.isDigit(codigo.charAt(i))) {
 					esValido = false;
 				}
-				if (esValido == true) {
-					this.codigo = codigo;
-				}
-				else {
-				throw new PuebloException("[ERROR] El codigo no es valido");
-				}
+				
+			}
+			if(esValido) {
+				this.codigo=codigo;
 			}
 		}
-		
+		else {
+			throw new PuebloException("[ERROR] El codigo no es valido");
+			}
 	}
 
 
